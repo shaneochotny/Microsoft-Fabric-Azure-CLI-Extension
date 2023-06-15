@@ -1,33 +1,32 @@
-import requests
-from azure.cli.core._profile import Profile
+from azext_fabric.helpers import *
+
+def capacities_list():
+    response = fabric_get_request("/capacities/author")
+    return response
+
+def domains_list():
+    response = fabric_get_request("/metadata/dataDomains")
+    return response
 
 def getSqlProvisioningStatus():
-    access_token = Profile().get_raw_token(resource="https://analysis.windows.net/powerbi/api")[0][2].get("accessToken")
-
-    api_url = 'https://wabi-west-us3-a-primary-redirect.analysis.windows.net/metadata/artifacts/35c469a9-8be5-421e-932d-63fd85556a92'
-    headers = {
-        "Authorization": f"Bearer {access_token}",
-        "Content-Type": "application/json"
-    }
-
-    response = requests.get(api_url, headers=headers)
+    response = fabric_get_request("/metadata/artifacts/65bedfd3-3a1a-4b75-9310-423a859db920")
     
-    print(f"provisionState: {response.json().get('provisionState')}")
+    print(f"provisionState: {response.get('provisionState')}")
 
-def createWorkspace():
-    access_token = Profile().get_raw_token(resource="https://analysis.windows.net/powerbi/api")[0][2].get("accessToken")
+def workspace_create(fabric_capacity_name, fabric_workspace_name, fabric_domain_name=None):
+    capacityObjectId = get_fabric_capacity_object_id(fabric_capacity_name)
+    if fabric_domain_name is not None:
+        domainObjectId = get_fabric_domain_object_id(fabric_domain_name)
+    else:
+        domainObjectId = ""
 
-    api_url = 'https://wabi-west-us3-a-primary-redirect.analysis.windows.net/metadata/folders'
-    headers = {
-        "Authorization": f"Bearer {access_token}",
-        "Content-Type": "application/json"
-    }
-    body = {
-        "displayName": "myclitest",
-        "capacityObjectId": "214DDB59-0299-4532-98C1-C74B31AB4BD5",
+    request_body = {
+        "displayName": fabric_workspace_name,
+        "capacityObjectId": capacityObjectId,
         "isServiceApp": "false",
         "datasetStorageMode": "2",
-        "domainObjectId": ""
+        "domainObjectId": domainObjectId
     }
 
-    post = requests.post(api_url, headers=headers, json=body)
+    response = fabric_post_request("/metadata/folders", request_body)
+    return response
