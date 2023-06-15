@@ -20,7 +20,7 @@ CLASSIFIERS = [
 DEPENDENCIES = []
 
 setup(
-    name='fabrictest',
+    name='fabric',
     version=VERSION,
     description='Test extension for Fabric',
     long_description='Test extension for Fabric.',
