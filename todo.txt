@@ -1,2 +1,39 @@
 Capacities:
-    Pause/Resume
+    pause (arm)
+    resume (arm)
+
+Connections:
+    create
+    list
+    show
+
+EventStream:
+    create
+    import
+    export
+    list
+    show
+
+KQL Database:
+    create
+    list
+    show
+
+KQL Query Set:
+    create
+    import
+    export
+    list
+    show
+
+Lakehouse Shortcut:
+    create
+    list
+    show
+
+Pipelines:
+    create
+    export (ipynb)
+    import (ipynb)
+    list
+    show
