@@ -4,8 +4,9 @@ Capacities:
 
 Connections:
     create
-    list
-    show
+
+Domains:
+    update
 
 EventStream:
     create

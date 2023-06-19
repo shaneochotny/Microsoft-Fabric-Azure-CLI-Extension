@@ -5,6 +5,13 @@ type: group
 short-summary: Unofficial extension for managing Fabric domains, workspaces, and artifacts.
 """
 
+
+###################################################################################################
+#
+# capacities
+#
+###################################################################################################
+
 helps['fabric capacities'] = """
 type: group
 short-summary: Manage Fabric Capacities.
@@ -15,10 +22,41 @@ helps['fabric capacities list'] = """
     short-summary: List available Fabric capacities.
 """
 
+###################################################################################################
+#
+# connections
+#
+###################################################################################################
+
+helps['fabric connections'] = """
+type: group
+short-summary: Manage Fabric Connections.
+"""
+
+helps['fabric connections list'] = """
+    type: command
+    short-summary: List Fabric Connections.
+"""
+
+helps['fabric connections show'] = """
+    type: command
+    short-summary: Show the details of a Connection.
+"""
+
+###################################################################################################
+#
+# domains
+#
+###################################################################################################
 
 helps['fabric domains'] = """
 type: group
 short-summary: Manage Fabric Domains.
+"""
+
+helps['fabric domains create'] = """
+    type: command
+    short-summary: Create a Fabric Domain.
 """
 
 helps['fabric domains list'] = """
@@ -26,6 +64,11 @@ helps['fabric domains list'] = """
     short-summary: List Fabric Domains.
 """
 
+###################################################################################################
+#
+# lakehouse
+#
+###################################################################################################
 
 helps['fabric lakehouse'] = """
 type: group
@@ -37,6 +80,26 @@ helps['fabric lakehouse create'] = """
     short-summary: Create a Fabric Lakehouse.
 """
 
+helps['fabric lakehouse delete'] = """
+    type: command
+    short-summary: Delete a Fabric Lakehouse.
+"""
+
+helps['fabric lakehouse list'] = """
+    type: command
+    short-summary: List all Fabric Lakehouses.
+"""
+
+helps['fabric lakehouse show'] = """
+    type: command
+    short-summary: Show the details of a Fabric Lakehouse.
+"""
+
+###################################################################################################
+#
+# warehouse
+#
+###################################################################################################
 
 helps['fabric warehouse'] = """
 type: group
@@ -48,6 +111,11 @@ helps['fabric warehouse create'] = """
     short-summary: Create a Fabric Warehouse.
 """
 
+###################################################################################################
+#
+# workspace
+#
+###################################################################################################
 
 helps['fabric workspace'] = """
 type: group
@@ -62,10 +130,4 @@ helps['fabric workspace create'] = """
 helps['fabric workspace list'] = """
     type: command
     short-summary: List Fabric Workspaces.
-"""
-
-
-helps['fabric sql-provisioning-status'] = """
-    type: command
-    short-summary: Get the provisioning status of a Lakehouse SQL Endpoint. Just a test...
 """
