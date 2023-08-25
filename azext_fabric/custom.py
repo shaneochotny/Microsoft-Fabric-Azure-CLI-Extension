@@ -87,7 +87,7 @@ def domains_list():
 # :param fabric_workspace_name: Name of the Fabric Workspeace to create the Lakehouse in
 # :return: JSON configuration
 def lakehouse_create(fabric_lakehouse_name, fabric_workspace_name):
-    workspaceObjectId = get_fabric_workspace(fabric_workspace_name)["workspaceObjectId"]
+    workspaceObjectId = get_fabric_workspace(fabric_workspace_name)["objectId"]
 
     request_body = {
         "artifactType": "Lakehouse",
@@ -105,7 +105,7 @@ def lakehouse_create(fabric_lakehouse_name, fabric_workspace_name):
 # :param yes: Confirmation of deletion
 # :return: JSON configuration
 def lakehouse_delete(fabric_lakehouse_name, fabric_workspace_name, yes=None):
-    workspaceObjectId = get_fabric_workspace(fabric_workspace_name)["workspaceObjectId"]
+    workspaceObjectId = get_fabric_workspace(fabric_workspace_name)["objectId"]
     lakehouseObjectId = lakehouse_show(fabric_workspace_name, fabric_lakehouse_name)["artifactObjectId"]
 
     if not yes:
@@ -154,7 +154,7 @@ def shortcut_create(fabric_connection_name, fabric_workspace_name, fabric_lakeho
     connectionObjectId = connectionDetails["id"]
     connectionServer = json.loads(connectionDetails["connectionDetails"])["server"]
 
-    workspaceObjectId = get_fabric_workspace(fabric_workspace_name)["workspaceObjectId"]
+    workspaceObjectId = get_fabric_workspace(fabric_workspace_name)["objectId"]
 
     request_url = f"/v2.0/workspaces/{fabric_workspace_name}/artifacts/{fabric_lakehouse_name}/shortcuts/{fabric_shortcut_type}/{fabric_shortcut_name}"
 
@@ -191,7 +191,7 @@ def shortcut_create(fabric_connection_name, fabric_workspace_name, fabric_lakeho
 # :param fabric_workspace_name: Name of the Fabric Workspeace to create the Warehouse in
 # :return: JSON configuration
 def warehouse_create(fabric_warehouse_name, fabric_workspace_name):
-    workspaceObjectId = get_fabric_workspace(fabric_workspace_name)["workspaceObjectId"]
+    workspaceObjectId = get_fabric_workspace(fabric_workspace_name)["objectId"]
 
     request_body = {
         "name": fabric_warehouse_name
@@ -237,5 +237,26 @@ def workspace_create(fabric_capacity_name, fabric_workspace_name, fabric_domain_
 #
 # :return: JSON array of Workspaces
 def workspace_list():
-    response = fabric_get_request("/metadata/gallery/dataflows")
+    request_body = {
+        "supportedTypes": [
+            "Model",
+            "Sql",
+            "KustoDatabase",
+            "Lakehouse",
+            "Datawarehouse",
+            "Lakewarehouse"
+        ],
+        "tridentSupportedTypes": [
+            "dataset",
+            "datamart",
+            "KustoDatabase",
+            "Lakehouse",
+            "data-warehouse",
+            "lake-warehouse"
+        ],
+        "filters": []
+    }
+
+    response = fabric_post_request("/metadata/datahub/workspaces", request_body)
+
     return response

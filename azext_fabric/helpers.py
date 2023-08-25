@@ -58,8 +58,8 @@ def build_request_header(auth_resource):
     access_token = Profile().get_raw_token(resource=auth_resource)[0][2].get("accessToken")
     header = {
         "Authorization": f"Bearer {access_token}",
-        "Content-Type": "application/json",
-        "X-Powerbi-User-Admin": "true"
+        "Content-Type": "application/json"
+        #"X-Powerbi-User-Admin": "true"
     }
     return header
 
@@ -102,7 +102,7 @@ def get_fabric_workspace(fabric_workspace_name):
     workspaces = workspace_list()
 
     for workspace in workspaces:
-        if "workspaceName" in workspace and workspace["workspaceName"].casefold() == fabric_workspace_name.casefold():
+        if "displayName" in workspace and workspace["displayName"].casefold() == fabric_workspace_name.casefold():
             return workspace
     else:
         raise ValidationError(f"Could not find a Fabric Workspace by the name of: {fabric_workspace_name}")
